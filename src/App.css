@@ -10,9 +10,6 @@ form {
   margin-right: auto;
   padding:20px 10px;
 }
-.auth-form button{
-  width:100%;
-}
 label{
   font-weight:600;
 }

@@ -3,7 +3,79 @@ import React from 'react';
 import { BrowserRouter as Route } from "react-router-dom";
 import RouteLink from "./route-link";
 
-let allElements = [];
+let elementsList = [
+  { id: 1, name: 'John' },
+  { id: 2, name: 'Tom' }
+];
+
+class RowElement extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onDeleteElement = this.onDeleteElement.bind(this);
+    this.state = {
+      isEdit: false,
+      editedElement: this.props.value
+    }
+  }
+
+  onEditElement() {
+    console.log(this.props.value);
+    this.setState({ editedElement: this.props.value });
+    this.setState({ isEdit: true });
+
+  }
+
+  onUpdateElement() {
+    this.setState({ isEdit: false });
+    console.log(this.state.editedElement, "this.state.editedElement");
+    this.props.onUpdateElement(this.props.index, this.state.editedElement)
+  }
+
+  onRestoreElement() {
+    this.setState({ isEdit: false });
+  }
+
+  onDeleteElement() {
+    this.props.onDeleteElement(this.props.index);
+  }
+  onChangeNameElement(e) {
+    console.log(e.target.value);
+    this.setState({ editedElement: e.target.value })
+  }
+  //need add onChange function with setState({elements:elementsList})
+  //now input dosen't updating
+  render() {
+    if (this.state.isEdit) {
+      return (
+        <div>
+          <input type="text" onChange={this.onChangeNameElement.bind(this)} value={this.state.editedElement.name}></input>
+          <button className="btn" onClick={this.onUpdateElement.bind(this)}>
+            <i className="glyphicon glyphicon-ok"></i>
+          </button>
+          <button className="btn" onClick={this.onRestoreElement.bind(this)}>
+            <i className="glyphicon glyphicon-repeat"></i>
+          </button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+        
+          {this.props.value.name}
+          <button
+            onClick={this.onEditElement.bind(this)}
+            className="btn">
+            <i className="glyphicon glyphicon-pencil"></i>
+          </button>
+          {/* where is bind? */}
+          <button onClick={this.onDeleteElement} className="btn">
+            <i className="glyphicon glyphicon-remove"></i>
+          </button>
+        </div>
+      )
+    }
+  }
+}
 
 class ListElements extends React.Component {
   constructor(props) {
@@ -17,14 +89,11 @@ class ListElements extends React.Component {
         { id: 2, name: 'Tom' }
       ]
     }
-    allElements = this.state.elements;
   }
 
   handelAddElement = () => {
-    let el = this.state.elements.slice();
-    el.push({ id: el.length + 1, name: this.state.nameElement.toString() });
-    allElements = el.slice();
-    this.setState({ elements: el });
+    elementsList.push({ id: elementsList.length + 1, name: this.state.nameElement.toString() });
+    this.setState({ elements: elementsList });
   }
 
   handelChangeName(event) {
@@ -33,19 +102,37 @@ class ListElements extends React.Component {
 
   filteringElements(event) {
     this.setState({ targetValue: event.target.value });
-    let targetValue = event.target.value;
   }
 
+  onDeleteElement(index) {
+    elementsList.splice(index, 1);
+    this.setState({ elementsList: elementsList });
+  }
 
+  onUpdateElement(index, value) {
+    console.log(index, "INDEX");
+    console.log(value, "VALUE");
+    elementsList[index].name = value.name; // SOME HTTP REQUEST MOCK
+    this.setState({ elementsList: elementsList });
+  }
 
   render() {
     let rows = [];
-    this.state.elements.forEach((element, key) => {
-      if (element.name.indexOf(this.state.targetValue) === -1) {
-        return;
+    console.log(elementsList, "ELEMENT LIST")
+    elementsList.forEach((element, key) => {
+      if (element.name.indexOf(this.state.targetValue) !== -1) {
+        rows.push(<li key={key}>
+          <RowElement
+            index={key}
+            value={element}
+            onDeleteElement={this.onDeleteElement.bind(this)}
+            onUpdateElement={this.onUpdateElement.bind(this)}>
+          </RowElement>
+        </li>);
       }
-      rows.push(<li  key={key}>{element.name}</li>);
+
     });
+
     return (
 
       <div>
@@ -66,18 +153,12 @@ class ListElements extends React.Component {
             <Route path="/topics" component={Topics} />
             <Route path="/topics2" component={Topics2} />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-4">
             <h2> Список элементов</h2>
-            <button type="button" className="btn btn-default" aria-label="Left Align">
-
-            </button>
             <ul>
               {rows}
             </ul>
-            <span className="glyphicon glyphicon-pencil"></span>
-                <span className="glyphicon glyphicon-remove"></span>
-                <span className="glyphicon glyphicon-ok"></span>
-                <span className="glyphicon glyphicon-repeat"></span>
+
           </div>
         </div>
       </div>
