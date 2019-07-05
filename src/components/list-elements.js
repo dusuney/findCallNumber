@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter as Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import RouteLink from "./route-link";
 
 let elementsList = [
@@ -22,22 +22,23 @@ class RowElement extends React.Component {
     this.setState({ isEdit: true });
 
   }
+  onRestoreElement() {
+    this.setState({ isEdit: false });
+  }
 
   onUpdateElement() {
     this.setState({ isEdit: false });
     this.props.onUpdateElement(this.props.index, this.state.editedElement)
   }
 
-  onRestoreElement() {
-    this.setState({ isEdit: false });
-  }
-
   onDeleteElement() {
     this.props.onDeleteElement(this.props.index);
   }
+
   onChangeNameElement(e) {
     this.setState({ editedElement: { name: e.target.value } })
   }
+
   render() {
     if (this.state.isEdit) {
       return (
@@ -75,8 +76,8 @@ class ListElements extends React.Component {
     super(props);
 
     this.state = {
-      targetValue: '',
-      nameElement: '',
+      searchText: '',
+      nameNewElement: '',
       elements: [
         { id: 1, name: 'John' },
         { id: 2, name: 'Tom' }
@@ -84,17 +85,17 @@ class ListElements extends React.Component {
     }
   }
 
-  handelAddElement = () => {
-    elementsList.push({ id: elementsList.length + 1, name: this.state.nameElement.toString() });
+  onAddElement = () => {
+    elementsList.push({ id: elementsList.length + 1, name: this.state.nameNewElement.toString() });
     this.setState({ elements: elementsList });
   }
 
-  handelChangeName(event) {
-    this.setState({ nameElement: event.target.value });
+  onChangeName(event) {
+    this.setState({ nameNewElement: event.target.value });
   }
 
   filteringElements(event) {
-    this.setState({ targetValue: event.target.value });
+    this.setState({ searchText: event.target.value });
   }
 
   onDeleteElement(index) {
@@ -110,7 +111,7 @@ class ListElements extends React.Component {
   render() {
     let rows = [];
     elementsList.forEach((element, key) => {
-      if (element.name.indexOf(this.state.targetValue) !== -1) {
+      if (element.name.indexOf(this.state.searchText) !== -1) {
         rows.push(<li key={key}>
           <RowElement
             index={key}
@@ -132,16 +133,16 @@ class ListElements extends React.Component {
             <h2>DASHBOARD</h2>
             <label htmlFor="search">Поиск</label>
             <br />
-            <input name="search" onChange={this.filteringElements.bind(this)} placeholder="Имя элемента" value={this.state.search} ></input>
+            <input name="search" onChange={this.filteringElements.bind(this)} placeholder="Имя элемента" value={this.state.searchText} ></input>
             <br /><br />
             <label htmlFor="search">Добавить элемент</label>
             <br />
-            <input name="search" value={this.state.nameElement} onChange={this.handelChangeName.bind(this)} placeholder="Имя элемента"></input>
+            <input name="search" value={this.state.nameNewElement} onChange={this.onChangeName.bind(this)} placeholder="Имя элемента"></input>
             <br /><br />
-            <button className="btn btn-primary" onClick={this.handelAddElement}>Добавить</button>
+            <button className="btn btn-primary" onClick={this.onAddElement}>Добавить</button>
 
-            <Route path="/topics" component={Topics} />
-            <Route path="/topics2" component={Topics2} />
+            <Route path="/topicOne" component={TopicOne} />
+            <Route path="/topicTwo" component={TopicsTwo} />
           </div>
           <div className="col-md-4">
             <h2> Список элементов</h2>
@@ -157,18 +158,18 @@ class ListElements extends React.Component {
   }
 }
 
-function Topics() {
+function TopicOne() {
   return (
     <div>
-      <h2>Topics</h2>
+      <h2>Topic one</h2>
     </div>
   );
 }
 
-function Topics2() {
+function TopicsTwo() {
   return (
     <div>
-      <h2>Topics2</h2>
+      <h2>Topic two</h2>
     </div>
   );
 }

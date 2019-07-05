@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 class RouteLink extends React.Component {
   logout() {
     localStorage.setItem('isAuth', '');
@@ -15,10 +15,10 @@ class RouteLink extends React.Component {
               <a href="/" link="/" onClick={this.logout}>Выход</a>
             </li>
             <li>
-              <Link to="/topics">topics</Link>
+              <Link to="/topicOne">Topic one</Link>
             </li>
             <li>
-              <Link to="/topics2">topics2</Link>
+              <Link to="/topicTwo">Topic two</Link>
             </li>
           </ul>
           <hr />
