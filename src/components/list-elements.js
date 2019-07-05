@@ -11,7 +11,6 @@ let elementsList = [
 class RowElement extends React.Component {
   constructor(props) {
     super(props);
-    this.onDeleteElement = this.onDeleteElement.bind(this);
     this.state = {
       isEdit: false,
       editedElement: this.props.value
@@ -19,7 +18,6 @@ class RowElement extends React.Component {
   }
 
   onEditElement() {
-    console.log(this.props.value);
     this.setState({ editedElement: this.props.value });
     this.setState({ isEdit: true });
 
@@ -27,7 +25,6 @@ class RowElement extends React.Component {
 
   onUpdateElement() {
     this.setState({ isEdit: false });
-    console.log(this.state.editedElement, "this.state.editedElement");
     this.props.onUpdateElement(this.props.index, this.state.editedElement)
   }
 
@@ -39,11 +36,8 @@ class RowElement extends React.Component {
     this.props.onDeleteElement(this.props.index);
   }
   onChangeNameElement(e) {
-    console.log(e.target.value);
-    this.setState({ editedElement: e.target.value })
+    this.setState({ editedElement: { name: e.target.value } })
   }
-  //need add onChange function with setState({elements:elementsList})
-  //now input dosen't updating
   render() {
     if (this.state.isEdit) {
       return (
@@ -60,15 +54,14 @@ class RowElement extends React.Component {
     } else {
       return (
         <div>
-        
+
           {this.props.value.name}
           <button
             onClick={this.onEditElement.bind(this)}
             className="btn">
             <i className="glyphicon glyphicon-pencil"></i>
           </button>
-          {/* where is bind? */}
-          <button onClick={this.onDeleteElement} className="btn">
+          <button onClick={this.onDeleteElement.bind(this)} className="btn">
             <i className="glyphicon glyphicon-remove"></i>
           </button>
         </div>
@@ -110,15 +103,12 @@ class ListElements extends React.Component {
   }
 
   onUpdateElement(index, value) {
-    console.log(index, "INDEX");
-    console.log(value, "VALUE");
     elementsList[index].name = value.name; // SOME HTTP REQUEST MOCK
     this.setState({ elementsList: elementsList });
   }
 
   render() {
     let rows = [];
-    console.log(elementsList, "ELEMENT LIST")
     elementsList.forEach((element, key) => {
       if (element.name.indexOf(this.state.targetValue) !== -1) {
         rows.push(<li key={key}>
