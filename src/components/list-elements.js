@@ -86,10 +86,17 @@ class ListElements extends React.Component {
   }
 
   onAddElement = () => {
-    elementsList.push({ id: elementsList.length + 1, name: this.state.nameNewElement.toString() });
-    this.setState({ elements: elementsList });
+    this.addElement({ id: this.state.elements.length + 1, name: this.state.nameNewElement.toString() });
   }
 
+  addElement = (elem) => {
+    if (elem.name === undefined || elem.name === "") {
+      return;
+    }
+    let elements = this.state.elements.slice();
+    elements.push(elem);
+    this.setState({ elements: elements });
+  }
   onChangeName(event) {
     this.setState({ nameNewElement: event.target.value });
   }
@@ -110,7 +117,8 @@ class ListElements extends React.Component {
 
   render() {
     let rows = [];
-    elementsList.forEach((element, key) => {
+    this.state.elements.forEach((element, key) => {
+      if (!element) return;
       if (element.name.indexOf(this.state.searchText) !== -1) {
         rows.push(<li key={key}>
           <RowElement
@@ -133,11 +141,11 @@ class ListElements extends React.Component {
             <h2>DASHBOARD</h2>
             <label htmlFor="search">Поиск</label>
             <br />
-            <input name="search" onChange={this.filteringElements.bind(this)} placeholder="Имя элемента" value={this.state.searchText} ></input>
+            <input name="search" onChange={this.filteringElements.bind(this)} placeholder="Имя элемента" value={this.props.searchText} ></input>
             <br /><br />
             <label htmlFor="search">Добавить элемент</label>
             <br />
-            <input name="search" value={this.state.nameNewElement} onChange={this.onChangeName.bind(this)} placeholder="Имя элемента"></input>
+            <input name="search" value={this.props.nameNewElement} onChange={this.onChangeName.bind(this)} placeholder="Имя элемента"></input>
             <br /><br />
             <button className="btn btn-primary" onClick={this.onAddElement}>Добавить</button>
 

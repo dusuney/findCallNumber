@@ -4,11 +4,16 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.4.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "formik": "^1.5.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-test-renderer": "^16.8.6",
+    "redux": "^4.0.2",
     "yup": "^0.27.0"
   },
   "scripts": {

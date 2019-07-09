@@ -24,12 +24,10 @@ class App extends React.Component {
           <div className="container auth-form">
             <div>
               <ThemeContext.Provider value={this.state.isAuth}>
-                <Router>
                   <div>
                     <Route path="/login" component={Login} />
                     <PrivateRoute path='/' component={PrivateRoute} />
                   </div>
-                </Router>
               </ThemeContext.Provider>
             </div>
 
