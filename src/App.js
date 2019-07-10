@@ -1,39 +1,43 @@
 import React from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import Login from './components/login';
+import AuthContainer from './components/authContainer';
 import PrivateRoute from './components/private-route';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
+import rootReducers from './store/reducers';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 const ThemeContext = React.createContext('light');
 
-
+const store = createStore(rootReducers);
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { isAuth: false };
+    this.state = { isAuth: false }; 
   }
+
 
   render() {
     return (
-      <Router>
-
-        <div className="App">
-          <div className="container auth-form">
-            <div>
-              <ThemeContext.Provider value={this.state.isAuth}>
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <div className="container auth-form">
+              <div>
+                <ThemeContext.Provider value={this.state.isAuth}>
                   <div>
-                    <Route path="/login" component={Login} />
+                    <Route path="/login" component={AuthContainer} />
                     <PrivateRoute path='/' component={PrivateRoute} />
                   </div>
-              </ThemeContext.Provider>
-            </div>
+                </ThemeContext.Provider>
+              </div>
 
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </Provider>
     );
 
   }

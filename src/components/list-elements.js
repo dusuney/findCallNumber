@@ -79,7 +79,8 @@ class ListElements extends React.Component {
         <br />
         <RouteLink></RouteLink>
         <Route path="/topicOne" component={TopicOne} />
-            <Route path="/topicTwo" component={TopicsTwo} />
+        <Route path="/topicTwo" component={TopicsTwo} />
+        
         <div className="row">
           <div className="col-md-3 col-xs-4">
             <h2>DASHBOARD</h2>
