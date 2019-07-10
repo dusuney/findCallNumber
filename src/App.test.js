@@ -8,16 +8,15 @@ import renderer from 'react-test-renderer';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-// it('renders without crashing', () => {
-//   const div = document.createElement('div');
-//   ReactDOM.render(<App />, div);
-//   ReactDOM.unmountComponentAtNode(div);
-// });
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
 
 it('should add new element', () => {
   configure({ adapter: new Adapter() });
   const components = shallow(<ListElements />);
-
   const instance = components.instance();
 
   let newElement = { name: "Nick" };
@@ -28,27 +27,61 @@ it('should add new element', () => {
     { id: 2, name: 'Tom' },
     { name: 'Nick' }
   ];
-  console.log(instance.state.elements, 'instance.state.elements');
   expect(instance.state.elements).toEqual(expectedObj);
 
 })
 
-it('should take error for empty object', () => {
+it('should not add empty object', () => {
   configure({ adapter: new Adapter() });
   const components = shallow(<ListElements />);
   const instance = components.instance();
 
-  let newElement = {name:""};
+  let newElement = { name: "" };
   instance.addElement(newElement);
 
   let expectedObj = [
     { id: 1, name: 'John' },
     { id: 2, name: 'Tom' }
   ];
-  console.log(instance.state.elements, 'instance.state.elements');
   expect(instance.state.elements).toEqual(expectedObj);
 
 })
+
+
+it('should equals over >3 ', () => {
+  configure({ adapter: new Adapter() });
+  const components = shallow(<ListElements />);
+  const instance = components.instance();
+
+  let newElement = { name: "41" };
+  instance.addElement(newElement);
+
+  let expectedObj = [
+    { id: 1, name: 'John' },
+    { id: 2, name: 'Tom' }
+  ];
+  expect(instance.state.elements).toEqual(expectedObj);
+});
+
+it('should less 9', () => {
+
+})
+
+
+it('should only latins symbol', () => {
+  configure({ adapter: new Adapter() });
+  const components = shallow(<ListElements />);
+  const instance = components.instance();
+
+  let newElement = { name: "casc23*" };
+  instance.addElement(newElement);
+
+  let expectedObj = [
+    { id: 1, name: 'John' },
+    { id: 2, name: 'Tom' }
+  ];
+  expect(instance.state.elements).toEqual(expectedObj);
+});
 // it('should search element', ()=>{
 
 // })

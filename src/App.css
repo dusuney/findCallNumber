@@ -14,3 +14,9 @@ label{
   font-weight:600;
 }
 
+
+.rows-elements .btn{
+  padding: 0px 3px !important;
+  margin-left: 5px;
+}
+

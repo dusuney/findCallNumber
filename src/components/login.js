@@ -52,23 +52,23 @@ class Login extends React.Component {
           >
             {({ errors, touched }) => (
               <Form>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group ">
-                    <label htmlFor="firstName">Логин</label>
-                    <Field name="firstName" className="form-control" />
-                    {errors.firstName && touched.firstName ? (
-                      <div>{errors.firstName}</div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group ">
+                      <label htmlFor="firstName">Логин</label>
+                      <Field name="firstName" className="form-control" />
+                      {errors.firstName && touched.firstName ? (
+                        <div>{errors.firstName}</div>
+                      ) : null}
+                    </div>
+                    <label htmlFor="lastName">Пароль</label>
+                    <Field name="lastName" className="form-control" />
+                    {errors.lastName && touched.lastName ? (
+                      <div>{errors.lastName}</div>
                     ) : null}
+                    <br />
+                    <button type="submit" className="btn btn-primary">Войти</button>
                   </div>
-                  <label htmlFor="lastName">Пароль</label>
-                  <Field name="lastName" className="form-control" />
-                  {errors.lastName && touched.lastName ? (
-                    <div>{errors.lastName}</div>
-                  ) : null}
-                  <br />
-                  <button type="submit" className="btn btn-primary">Войти</button>
-                </div>
                 </div>
               </Form>
             )}
