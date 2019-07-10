@@ -76,24 +76,34 @@ class ListElements extends React.Component {
     return (
 
       <div>
-      <br/>
+        <br />
         <RouteLink></RouteLink>
+        <Route path="/topicOne" component={TopicOne} />
+            <Route path="/topicTwo" component={TopicsTwo} />
         <div className="row">
           <div className="col-md-3 col-xs-4">
             <h2>DASHBOARD</h2>
             <label htmlFor="search">Поиск</label>
             <br />
-            <input className="form-control" name="search" onChange={this.filteringElements.bind(this)} placeholder="Имя элемента" value={this.props.searchText} ></input>
+            <input
+              className="form-control"
+              name="search"
+              onChange={this.filteringElements.bind(this)}
+              placeholder="Имя элемента"
+              value={this.props.searchText} ></input>
             <br /><br />
             <label htmlFor="search">Добавить элемент</label>
             <br />
-            <input className="form-control" name="search" value={this.props.nameNewElement} onChange={this.onChangeName.bind(this)} placeholder="Имя элемента"></input>
+            <input
+              className="form-control" name="search"
+              value={this.props.nameNewElement}
+              onChange={this.onChangeName.bind(this)}
+              placeholder="Имя элемента"></input>
             <br />
             <button className="btn btn-primary" onClick={this.onAddElement}>Добавить</button>
             <br />
-            <hr/>
-            <Route path="/topicOne" component={TopicOne} />
-            <Route path="/topicTwo" component={TopicsTwo} />
+            <hr />
+            
           </div>
           <div className="col-md-4 col-xs-6">
             <h2> Список элементов</h2>
