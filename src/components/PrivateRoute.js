@@ -1,11 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import  ListElements  from "./list-elements";
+import { BrowserRouter as Router, Route,  Redirect } from "react-router-dom";
+import  ListElements  from "./Dashboard";
 
 class PrivateRoute extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+ 
   render() {
     let isAuth = localStorage.getItem('isAuth')
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { create } from "react-test-renderer";
-import ListElements from "./components/list-elements"
+import ListElements from "./components/Dashboard"
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import renderer from 'react-test-renderer';
 import { shallow, configure } from 'enzyme';

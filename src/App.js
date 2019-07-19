@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import AuthContainer from './components/authContainer';
-import PrivateRoute from './components/private-route';
+import AuthContainer from './components/AuthContainer';
+import PrivateRoute from './components/PrivateRoute';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import rootReducers from './store/reducers';

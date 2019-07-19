@@ -1,19 +1,7 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { BrowserRouter as Redirect } from "react-router-dom";
 
-const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  lastName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required')
-});
+import { BrowserRouter as Redirect } from "react-router-dom";
 
 
 class Auth extends React.Component {

@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { Route } from "react-router-dom";
-import RouteLink from "./route-link";
-import RowElement from "./row-element";
+import RouteLink from "./RouteLink";
+import RowElement from "./RowElement";
 
 
 class ListElements extends React.Component {
@@ -20,8 +20,6 @@ class ListElements extends React.Component {
   }
 
   onAddElement = () => {
-
-
     this.addElement({ id: this.state.elements.length + 1, name: this.state.nameNewElement.toString() });
   }
 
@@ -36,6 +34,7 @@ class ListElements extends React.Component {
 
     this.setState({ elements: elements });
   }
+  
   onChangeName(event) {
     this.setState({ nameNewElement: event.target.value });
   }
